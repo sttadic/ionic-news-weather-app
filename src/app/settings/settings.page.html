@@ -1,0 +1,15 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Settings</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="div-settings-radio">
+    <ion-radio-group [(ngModel)]="unit" (ionChange)="storeUnit()" class="settings-radio">
+      <ion-radio value="metric">Metric</ion-radio><br />
+      <ion-radio value="standard">Standard</ion-radio><br />
+      <ion-radio value="imperial">Imperial</ion-radio><br />
+    </ion-radio-group>
+</div>
+</ion-content>
