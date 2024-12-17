@@ -4,8 +4,8 @@ import { IonHeader, IonToolbar, IonTitle, IonContent, IonIcon, IonInput, IonButt
 import { addIcons } from 'ionicons';
 import { settingsOutline } from 'ionicons/icons';
 import { StorageService } from '../services/storage.service';
-import { count } from 'rxjs';
 import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -17,11 +17,13 @@ import { RouterLink } from '@angular/router';
 export class HomePage {
   country!: string;
 
-  constructor(private ss: StorageService) {
+  constructor(private ss: StorageService, private router: Router) {
     addIcons({settingsOutline});
   }
 
+  // Store country (search parameter) in ionic storage and navigate to contries page
   async storeCountry() {
     await this.ss.set("country", this.country);
+    this.router.navigate(['/countries']);
   }
 }
