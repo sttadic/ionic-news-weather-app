@@ -11,7 +11,7 @@ import { HttpOptions } from '@capacitor/core';
   templateUrl: './countries.page.html',
   styleUrls: ['./countries.page.scss'],
   standalone: true,
-  imports: [IonButton, IonCardSubtitle, IonCardHeader, IonCard, IonCardTitle, IonCardContent, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonButton, IonCardHeader, IonCard, IonCardTitle, IonCardContent, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
 })
 export class CountriesPage implements OnInit {
   searchParam: string = "";
@@ -35,8 +35,9 @@ export class CountriesPage implements OnInit {
   async getCountries() {
     this.options.url = this.options.url + this.searchParam;
     const result = await this.mhs.get(this.options);
+    // Don't proceed if status code is 404 (no countries found)
+    if (result.data.status == 404) return; 
     this.contriesData = result.data;
-    console.log(this.contriesData);
   }
 
 }

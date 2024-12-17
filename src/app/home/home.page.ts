@@ -23,6 +23,10 @@ export class HomePage {
 
   // Store country (search parameter) in ionic storage and navigate to contries page
   async storeCountry() {
+    if (!this.country) {
+      alert("Search field cannot be empty!");
+      return;
+    } 
     await this.ss.set("country", this.country);
     this.router.navigate(['/countries']);
   }

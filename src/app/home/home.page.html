@@ -8,6 +8,8 @@
 </ion-header>s
 
 <ion-content [fullscreen]="true">
-  <ion-input label="Enter Country: " [(ngModel)]="country" placeholder="Country name"></ion-input>
-  <ion-button (click)="storeCountry()">Search</ion-button>
+  <div class="search-input-btn">
+    <ion-input label="Enter Country: " [(ngModel)]="country" placeholder="Country name"></ion-input>
+    <ion-button (click)="storeCountry()">Search</ion-button>
+  </div>
 </ion-content>

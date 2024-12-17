@@ -5,15 +5,18 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-card *ngFor="let country of contriesData" class="card-countries">
-    <img alt="flag" src="{{ country.flags.png }}" />
-    <ion-card-header>
-      <ion-card-title>{{ country.name.common }}</ion-card-title>
-    </ion-card-header>
-  
-    <ion-card-content>
-      <ion-button expand="block">News</ion-button>
-      <ion-button expand="block">Weather</ion-button>
-    </ion-card-content>
-  </ion-card>
+  <div  class="card-countries">
+    <h4 *ngIf="!contriesData">We looked everywhere... under the couch, in the fridge, even behind the curtains. But we couldn’t find what you’re looking for. Try again!</h4>
+    <ion-card *ngFor="let country of contriesData">
+      <img alt="flag" src="{{ country.flags.png }}" />
+      <ion-card-header>
+        <ion-card-title>{{ country.name.official }}</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+        <ion-button expand="block">News</ion-button>
+        <ion-button expand="block">Weather</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>
