@@ -9,5 +9,5 @@
 
 <ion-content [fullscreen]="true">
   <ion-input label="Enter Country: " [(ngModel)]="country" placeholder="Country name"></ion-input>
-  <ion-button>Search</ion-button>
+  <ion-button (click)="storeCountry()">Search</ion-button>
 </ion-content>
