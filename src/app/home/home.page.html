@@ -2,10 +2,10 @@
   <ion-toolbar>
     <ion-title>
       G00438839
-      <ion-icon class="title-settings" name="settings-outline"></ion-icon>
+      <ion-icon [routerLink]="['/settings']" class="title-settings" name="settings-outline"></ion-icon>
     </ion-title>
   </ion-toolbar>
-</ion-header>
+</ion-header>s
 
 <ion-content [fullscreen]="true">
   <ion-input label="Enter Country: " [(ngModel)]="country" placeholder="Country name"></ion-input>
