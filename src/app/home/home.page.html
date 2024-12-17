@@ -1,21 +1,13 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      <span class="title-id">G00438839</span>
-      <ion-icon calss="settings-icon" name="settings-outline"></ion-icon>
+      G00438839
+      <ion-icon class="title-settings" name="settings-outline"></ion-icon>
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <ion-input label="Enter Country: " [(ngModel)]="country" placeholder="Country name"></ion-input>
+  <ion-button>Search</ion-button>
 </ion-content>

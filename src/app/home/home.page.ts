@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonIcon } from '@ionic/angular/standalone';
+import { FormsModule } from '@angular/forms';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonIcon, IonInput, IonButton } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { settingsOutline } from 'ionicons/icons';
 
@@ -8,9 +9,11 @@ import { settingsOutline } from 'ionicons/icons';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [IonIcon, IonHeader, IonToolbar, IonTitle, IonContent],
+  imports: [IonButton, IonInput, IonIcon, IonHeader, IonToolbar, IonTitle, IonContent, FormsModule],
 })
 export class HomePage {
+  country!: string;
+
   constructor() {
     addIcons({settingsOutline});
   }

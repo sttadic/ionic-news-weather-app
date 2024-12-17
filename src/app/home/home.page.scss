@@ -25,3 +25,10 @@
 #container a {
   text-decoration: none;
 }
+
+// https://medium.com/12-developer-labors/css-all-the-ways-to-align-elements-left-and-right-52ecce4a4af9
+.title-settings {
+  position: absolute;
+  right: 0;
+  margin-right: 1rem;
+}
