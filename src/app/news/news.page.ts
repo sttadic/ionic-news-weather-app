@@ -1,16 +1,17 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardSubtitle, IonCardContent, IonCardTitle } from '@ionic/angular/standalone';
 import { HttpOptions } from '@capacitor/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MyHttpService } from '../services/my-http.service';
 
 @Component({
   selector: 'app-news',
   templateUrl: './news.page.html',
   styleUrls: ['./news.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonCardTitle, IonCardContent, IonCardSubtitle, IonCardHeader, IonCard, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
 })
 export class NewsPage  {
   newsData: any;
@@ -22,8 +23,8 @@ export class NewsPage  {
     url: "https://newsdata.io/api/1/latest?apikey="
   }
 
-  // Accessing data passed with Router: https://ionicacademy.com/pass-data-angular-router-ionic-4/
-  constructor(private route: ActivatedRoute, private router: Router) {
+  // Accessing data passed with Angular Router: https://ionicacademy.com/pass-data-angular-router-ionic-4/
+  constructor(private route: ActivatedRoute, private router: Router, private mhs: MyHttpService) {
     this.route.queryParams.subscribe(() => {
       if (this.router.getCurrentNavigation()) {
         this.countryData = this.router.getCurrentNavigation()?.extras.state;
@@ -40,8 +41,9 @@ export class NewsPage  {
     this.fetchNews();
   }
 
-  fetchNews() {
+  async fetchNews() {
     this.options.url = this.options.url + this.apiKey + "&country=" + this.countryCode;
-    console.log(this.options.url)
+    let result = await this.mhs.get(this.options);
+    this.newsData = result.data.results;
   }
 }
