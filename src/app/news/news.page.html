@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-card *ngFor="let story of newsData">
+  <ion-card *ngFor="let story of newsData" class="card-news">
     <img alt="Story image" src="{{ story.image_url }}" />
     <ion-card-header>
       <ion-card-title>{{ story.title }}      </ion-card-title>
