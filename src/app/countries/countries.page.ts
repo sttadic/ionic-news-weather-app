@@ -59,7 +59,7 @@ export class CountriesPage implements OnInit {
         longitude: longitude
       }
     }
-    this.router.navigate(["/news"], navigationExtras);
+    this.router.navigate(["/weather"], navigationExtras);
   }
 
 }
