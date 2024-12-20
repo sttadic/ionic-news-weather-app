@@ -15,19 +15,19 @@ import { Router } from '@angular/router';
   imports: [IonButton, IonInput, IonIcon, IonHeader, IonToolbar, IonTitle, IonContent, FormsModule, RouterLink],
 })
 export class HomePage {
-  country!: string;
+  countrySearchParam!: string;
 
   constructor(private ss: StorageService, private router: Router) {
     addIcons({settingsOutline});
   }
 
-  // Store country (search parameter) in ionic storage and navigate to contries page
-  async storeCountry() {
-    if (!this.country) {
+  // Store country query in ionic storage and navigate to contries page
+  async storeSearchParam() {
+    if (!this.countrySearchParam) {
       alert("Search field cannot be empty!");
       return;
     } 
-    await this.ss.set("country", this.country);
+    await this.ss.set("countrySearchParam", this.countrySearchParam);
     this.router.navigate(['/countries']);
   }
 }

@@ -13,7 +13,7 @@ import { RouterLink } from '@angular/router';
   imports: [IonButton, IonRadioGroup, IonRadio, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, RouterLink]
 })
 export class SettingsPage implements OnInit {
-  unit!: string;
+  unitSystem!: string;
 
   constructor(private ss: StorageService) { }
 
@@ -22,12 +22,12 @@ export class SettingsPage implements OnInit {
   }
 
   async getUnit() {
-    this.unit = await this.ss.get("unit");
-    // If no unit stored, set default value "metric"
-    if (!this.unit) this.unit = "metric";
+    this.unitSystem = await this.ss.get("unitSystem");
+    // If no unitSystem stored, set default value "metric"
+    if (!this.unitSystem) this.unitSystem = "metric";
   }
 
   async storeUnit() {
-    await this.ss.set("unit", this.unit);
+    await this.ss.set("unitSystem", this.unitSystem);
   }
 }

@@ -28,7 +28,7 @@ export class CountriesPage implements OnInit {
 
   // Fetch data from storage and call getContries after searchParam is set
   async getSearchParam() {
-    this.searchParam = await this.ss.get("country");
+    this.searchParam = await this.ss.get("countrySearchParam");
     this.getCountries();
   }
 
