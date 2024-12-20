@@ -15,7 +15,7 @@
 
       <ion-card-content>
         <ion-button expand="block" (click)="openNews(country.name.official, country.cca2)">News</ion-button>
-        <ion-button expand="block">Weather</ion-button>
+        <ion-button expand="block" (click)="openWeather(country.latlng[0], country.latlng[1])">Weather</ion-button>
       </ion-card-content>
     </ion-card>
   </div>

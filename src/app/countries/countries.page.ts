@@ -18,7 +18,7 @@ export class CountriesPage implements OnInit {
   searchParam: string = "";
   contriesData: any;
   options: HttpOptions = {
-    url: 'https://restcountries.com/v3.1/name/'  
+    url: "https://restcountries.com/v3.1/name/"  
   }
 
   constructor(private ss: StorageService, private mhs: MyHttpService, private router: Router) { }
@@ -36,8 +36,8 @@ export class CountriesPage implements OnInit {
   async getCountries() {
     this.options.url = this.options.url + this.searchParam;
     const result = await this.mhs.get(this.options);
-    // Don't proceed if status code is 404 (no countries found)
-    if (result.data.status == 404) return; 
+    // Don't proceed in case no countries can be found (404) or some other client/server issue
+    if (result.data.status >= 400) return; 
     this.contriesData = result.data;
   }
 
@@ -47,6 +47,16 @@ export class CountriesPage implements OnInit {
       state: {
         countryName: countryName,
         countryCode: countryCode
+      }
+    }
+    this.router.navigate(["/news"], navigationExtras);
+  }
+
+  openWeather(latitude: string, longitude: string) {
+    let navigationExtras: NavigationExtras = {
+      state: {
+        latitude: latitude,
+        longitude: longitude
       }
     }
     this.router.navigate(["/news"], navigationExtras);
