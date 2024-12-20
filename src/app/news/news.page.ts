@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardSubtitle, IonCardContent, IonCardTitle } from '@ionic/angular/standalone';
@@ -11,9 +11,9 @@ import { MyHttpService } from '../services/my-http.service';
   templateUrl: './news.page.html',
   styleUrls: ['./news.page.scss'],
   standalone: true,
-  imports: [IonCardTitle, IonCardContent, IonCardSubtitle, IonCardHeader, IonCard, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonCardTitle, IonCardSubtitle, IonCardHeader, IonCard, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
 })
-export class NewsPage  {
+export class NewsPage implements OnInit  {
   newsData: any;
   countryData: any;
   countryName!: string;
@@ -44,6 +44,8 @@ export class NewsPage  {
   async fetchNews() {
     this.options.url = this.options.url + this.apiKey + "&country=" + this.countryCode;
     let result = await this.mhs.get(this.options);
+    // Handle status codes that indicate issue with client request or server
+    if (result.data.status >= 400) return;
     this.newsData = result.data.results;
   }
 }

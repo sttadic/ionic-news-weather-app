@@ -5,11 +5,14 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-card *ngFor="let story of newsData" class="card-news">
-    <img alt="Story image" src="{{ story.image_url }}" />
-    <ion-card-header>
-      <ion-card-title>{{ story.title }}      </ion-card-title>
-      <ion-card-subtitle>{{ story.description }}</ion-card-subtitle>
-    </ion-card-header>
-  </ion-card>
+  <div class="news-container">
+    <h4 *ngIf="!newsData">No News for {{ countryName }}</h4>
+    <ion-card *ngFor="let story of newsData">
+      <img class="news-image" alt="Story image" src="{{ story.image_url }}" />
+      <ion-card-header>
+        <ion-card-title>{{ story.title }}      </ion-card-title>
+        <ion-card-subtitle>{{ story.description }}</ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
+  </div>
 </ion-content>
