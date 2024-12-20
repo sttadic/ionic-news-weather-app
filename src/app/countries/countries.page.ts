@@ -5,6 +5,7 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonCardContent, IonCardTit
 import { StorageService } from '../services/storage.service';
 import { MyHttpService } from '../services/my-http.service';
 import { HttpOptions } from '@capacitor/core';
+import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
   selector: 'app-countries',
@@ -17,10 +18,10 @@ export class CountriesPage implements OnInit {
   searchParam: string = "";
   contriesData: any;
   options: HttpOptions = {
-    url: "https://restcountries.com/v3.1/name/"  
+    url: 'https://restcountries.com/v3.1/name/'  
   }
 
-  constructor(private ss: StorageService, private mhs: MyHttpService) { }
+  constructor(private ss: StorageService, private mhs: MyHttpService, private router: Router) { }
 
   ngOnInit() {
     this.getSearchParam();
@@ -38,6 +39,17 @@ export class CountriesPage implements OnInit {
     // Don't proceed if status code is 404 (no countries found)
     if (result.data.status == 404) return; 
     this.contriesData = result.data;
+  }
+
+  // Passing data using Router: https://ionicacademy.com/pass-data-angular-router-ionic-4/
+  openNews(countryName: string, countryCode: string) {
+    let navigationExtras: NavigationExtras = {
+      state: {
+        countryName: countryName,
+        countryCode: countryCode
+      }
+    }
+    this.router.navigate(["/news"], navigationExtras);
   }
 
 }
