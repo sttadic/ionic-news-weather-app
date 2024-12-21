@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonCardContent, IonCardSubtitle, IonCardTitle, IonCardHeader, IonCard } from '@ionic/angular/standalone';
 import { HttpOptions } from '@capacitor/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MyHttpService } from '../services/my-http.service';
@@ -12,14 +12,18 @@ import { StorageService } from '../services/storage.service';
   templateUrl: './weather.page.html',
   styleUrls: ['./weather.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
 })
 export class WeatherPage implements OnInit {
-  weatherData: any;
-  longLatData: any;
+  weatherData: any = {};
+  countriesData: any;
   latitude!: string;
   longitude!: string;
+  capital!: string;
   unit!: string;
+  weatherIcon!: string;
+  weatherDesc!: string;
+  weatherTemp!: string;
   apiKey = "b2d49c5ea156ef787f5cde7cdd1d40cc";
   options: HttpOptions = {
     url: "https://api.openweathermap.org/data/2.5/weather"
@@ -29,21 +33,22 @@ export class WeatherPage implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router, private mhs: MyHttpService, private ss: StorageService) {
     this.route.queryParams.subscribe(() => {
       if (this.router.getCurrentNavigation()) {
-        this.longLatData = this.router.getCurrentNavigation()?.extras.state;
+        this.countriesData = this.router.getCurrentNavigation()?.extras.state;
       }
     });
   }
 
   ngOnInit() {
-    this.latitude = this.longLatData.latitude;
-    this.longitude = this.longLatData.longitude;
+    this.latitude = this.countriesData.latitude;
+    this.longitude = this.countriesData.longitude;
+    this.capital = this.countriesData.capital;
   }
 
   ionViewWillEnter() {
     this.initUnitWeather();
   }
 
-  // Get unit from storage and fetch weather
+  // Get unit from storage or set default to metric, and fetch weather
   async initUnitWeather() {
     this.unit = await this.ss.get("unitSystem");
     if (!this.unit) this.unit = "metric";
@@ -51,7 +56,13 @@ export class WeatherPage implements OnInit {
   }
 
   async fetchWeather() {
-    console.log(this.unit)
+    this.options.url = `${this.options.url}?lat=${this.latitude}&lon=${this.longitude}&units=${this.unit}&appid=${this.apiKey}`;
+    let result = await this.mhs.get(this.options);
+    if (result.status >= 400) return;
+    this.weatherData = result.data;
+    this.weatherIcon = `https://openweathermap.org/img/wn/${this.weatherData.weather[0].icon}@2x.png`
+    this.weatherDesc = this.weatherData.weather[0].description;
+    this.weatherTemp = this.weatherData.main.temp;
   }
 
 }

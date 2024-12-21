@@ -52,11 +52,12 @@ export class CountriesPage implements OnInit {
     this.router.navigate(["/news"], navigationExtras);
   }
 
-  openWeather(latitude: string, longitude: string) {
+  openWeather(latitude: string, longitude: string, capital: string) {
     let navigationExtras: NavigationExtras = {
       state: {
         latitude: latitude,
-        longitude: longitude
+        longitude: longitude,
+        capital: capital
       }
     }
     this.router.navigate(["/weather"], navigationExtras);

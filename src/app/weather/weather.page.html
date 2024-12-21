@@ -1,13 +1,17 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Weather</ion-title>
+    <ion-title>Weather for {{ capital }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Weather</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div>
+    <ion-card>
+      <img alt="Silhouette of mountains" src="{{weatherIcon}}" />
+      <ion-card-header>
+        <ion-card-title> {{ weatherDesc }}</ion-card-title>
+        <ion-card-subtitle>{{ weatherTemp }}</ion-card-subtitle>
+      </ion-card-header>
+    </ion-card>
+  </div>
 </ion-content>
