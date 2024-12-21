@@ -23,11 +23,6 @@ export class SettingsPage implements OnInit {
 
   async getUnit() {
     this.unitSystem = await this.ss.get("unitSystem");
-    // If no unitSystem stored, set default value to "metric"
-    if (!this.unitSystem) { 
-      this.unitSystem = "metric";
-      this.storeUnit();
-    }
   }
 
   async storeUnit() {

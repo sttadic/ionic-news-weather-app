@@ -48,7 +48,7 @@ export class WeatherPage implements OnInit {
     this.initUnitWeather();
   }
 
-  // Get unit from storage or set default to metric, set tempUnit and fetch weather
+  // Get unit from storage or set default if unit cannot be retrieved, set tempUnit and fetch weather data
   async initUnitWeather() {
     this.unit = await this.ss.get("unitSystem");
     if (!this.unit) this.unit = "metric";
@@ -73,7 +73,7 @@ export class WeatherPage implements OnInit {
   async fetchWeather() {
     this.options.url = `${this.options.url}?lat=${this.latitude}&lon=${this.longitude}&units=${this.unit}&appid=${this.apiKey}`;
     let result = await this.mhs.get(this.options);
-    result.status = 500
+    // Check for valid status codes
     if (result.status >= 400) {
       this.hidden = true;
       return;

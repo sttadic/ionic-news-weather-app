@@ -6,6 +6,7 @@ import { settingsOutline } from 'ionicons/icons';
 import { StorageService } from '../services/storage.service';
 import { RouterLink } from '@angular/router';
 import { Router } from '@angular/router';
+import { __setFunctionName } from 'tslib';
 
 @Component({
   selector: 'app-home',
@@ -16,9 +17,20 @@ import { Router } from '@angular/router';
 })
 export class HomePage {
   countrySearchParam!: string;
+  unitSystem!: string;
 
   constructor(private ss: StorageService, private router: Router) {
     addIcons({settingsOutline});
+  }
+
+  ionViewWillEnter() {
+    this.storeUnit();
+  }
+
+  // Default measurement system to 'metric' if none is selected on page load
+  async storeUnit() {
+    this.unitSystem = await this.ss.get("unitSystem");
+    if (!this.unitSystem) await this.ss.set("unitSystem", "metric");
   }
 
   // Store country query in ionic storage and navigate to contries page
