@@ -45,7 +45,7 @@ export class NewsPage implements OnInit  {
     this.options.url = this.options.url + this.apiKey + "&country=" + this.countryCode;
     let result = await this.mhs.get(this.options);
     // Handle status codes that indicate issue with client request or server
-    if (result.data.status >= 400) return;
+    if (result.status >= 400) return;
     this.newsData = result.data.results;
   }
 }

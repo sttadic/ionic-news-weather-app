@@ -8,10 +8,12 @@
   <div class="news-container">
     <h4 *ngIf="!newsData">No News for {{ countryName }}</h4>
     <ion-card *ngFor="let story of newsData">
-      <img class="news-image" alt="Story image" src="{{ story.image_url }}" />
+      <img class="news-image" alt="Story image" src="{{ story?.image_url }}" />
       <ion-card-header>
-        <ion-card-title>{{ story.title }}      </ion-card-title>
-        <ion-card-subtitle>{{ story.description }}</ion-card-subtitle>
+        <a href="{{ story?.link }}" target="_blank" class="news-link">
+          <ion-card-title>{{ story?.title }}</ion-card-title>
+        </a>
+        <ion-card-subtitle>{{ story?.description }}</ion-card-subtitle>
       </ion-card-header>
     </ion-card>
   </div>
