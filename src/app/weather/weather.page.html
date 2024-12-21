@@ -5,12 +5,13 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <div>
+  <h4 *ngIf="hidden">Weather information for {{ capital }} cannot be retrieved at the moment! Please try again later.</h4>
+  <div [hidden]="hidden">
     <ion-card>
-      <img alt="Silhouette of mountains" src="https://openweathermap.org/img/wn/{{ weatherData.weather?.[0]?.icon }}@2x.png" />
+      <img alt="Weather icon" src="https://openweathermap.org/img/wn/{{ weatherData.weather?.[0]?.icon }}@2x.png" />
       <ion-card-header>
         <ion-card-title> {{ weatherData.weather?.[0]?.description }}</ion-card-title>
-        <ion-card-subtitle>{{ weatherData.main?.temp }}</ion-card-subtitle>
+        <ion-card-subtitle>{{ weatherData.main?.temp }} {{ tempUnit }}</ion-card-subtitle>
       </ion-card-header>
     </ion-card>
   </div>

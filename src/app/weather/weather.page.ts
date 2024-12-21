@@ -12,7 +12,7 @@ import { StorageService } from '../services/storage.service';
   templateUrl: './weather.page.html',
   styleUrls: ['./weather.page.scss'],
   standalone: true,
-  imports: [IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
 })
 export class WeatherPage implements OnInit {
   weatherData: any = {};
@@ -21,6 +21,8 @@ export class WeatherPage implements OnInit {
   longitude!: string;
   capital!: string;
   unit!: string;
+  tempUnit!: string;
+  hidden!: boolean;
   apiKey = "b2d49c5ea156ef787f5cde7cdd1d40cc";
   options: HttpOptions = {
     url: "https://api.openweathermap.org/data/2.5/weather"
@@ -36,6 +38,7 @@ export class WeatherPage implements OnInit {
   }
 
   ngOnInit() {
+    this.hidden = false;
     this.latitude = this.countryData.latitude;
     this.longitude = this.countryData.longitude;
     this.capital = this.countryData.capital;
@@ -45,17 +48,36 @@ export class WeatherPage implements OnInit {
     this.initUnitWeather();
   }
 
-  // Get unit from storage or set default to metric, and fetch weather
+  // Get unit from storage or set default to metric, set tempUnit and fetch weather
   async initUnitWeather() {
     this.unit = await this.ss.get("unitSystem");
     if (!this.unit) this.unit = "metric";
+    this.setTempUnit();
     this.fetchWeather();
+  }
+
+  setTempUnit() {
+    switch(this.unit) {
+      case "imperial":
+        this.tempUnit = "°F";
+        break;
+      case "standard":
+        this.tempUnit = "K";
+        break;
+      default:
+        this.tempUnit = "°C";
+        break;
+    }
   }
 
   async fetchWeather() {
     this.options.url = `${this.options.url}?lat=${this.latitude}&lon=${this.longitude}&units=${this.unit}&appid=${this.apiKey}`;
     let result = await this.mhs.get(this.options);
-    if (result.status >= 400) return;
+    result.status = 500
+    if (result.status >= 400) {
+      this.hidden = true;
+      return;
+    }
     this.weatherData = result.data;
   }
 
