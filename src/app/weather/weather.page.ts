@@ -16,14 +16,11 @@ import { StorageService } from '../services/storage.service';
 })
 export class WeatherPage implements OnInit {
   weatherData: any = {};
-  countriesData: any;
+  countryData: any;
   latitude!: string;
   longitude!: string;
   capital!: string;
   unit!: string;
-  weatherIcon!: string;
-  weatherDesc!: string;
-  weatherTemp!: string;
   apiKey = "b2d49c5ea156ef787f5cde7cdd1d40cc";
   options: HttpOptions = {
     url: "https://api.openweathermap.org/data/2.5/weather"
@@ -33,15 +30,15 @@ export class WeatherPage implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router, private mhs: MyHttpService, private ss: StorageService) {
     this.route.queryParams.subscribe(() => {
       if (this.router.getCurrentNavigation()) {
-        this.countriesData = this.router.getCurrentNavigation()?.extras.state;
+        this.countryData = this.router.getCurrentNavigation()?.extras.state;
       }
     });
   }
 
   ngOnInit() {
-    this.latitude = this.countriesData.latitude;
-    this.longitude = this.countriesData.longitude;
-    this.capital = this.countriesData.capital;
+    this.latitude = this.countryData.latitude;
+    this.longitude = this.countryData.longitude;
+    this.capital = this.countryData.capital;
   }
 
   ionViewWillEnter() {
@@ -60,9 +57,6 @@ export class WeatherPage implements OnInit {
     let result = await this.mhs.get(this.options);
     if (result.status >= 400) return;
     this.weatherData = result.data;
-    this.weatherIcon = `https://openweathermap.org/img/wn/${this.weatherData.weather[0].icon}@2x.png`
-    this.weatherDesc = this.weatherData.weather[0].description;
-    this.weatherTemp = this.weatherData.main.temp;
   }
 
 }

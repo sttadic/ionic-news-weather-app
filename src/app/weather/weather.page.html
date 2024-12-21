@@ -7,10 +7,10 @@
 <ion-content [fullscreen]="true">
   <div>
     <ion-card>
-      <img alt="Silhouette of mountains" src="{{weatherIcon}}" />
+      <img alt="Silhouette of mountains" src="https://openweathermap.org/img/wn/{{ weatherData.weather?.[0]?.icon }}@2x.png" />
       <ion-card-header>
-        <ion-card-title> {{ weatherDesc }}</ion-card-title>
-        <ion-card-subtitle>{{ weatherTemp }}</ion-card-subtitle>
+        <ion-card-title> {{ weatherData.weather?.[0]?.description }}</ion-card-title>
+        <ion-card-subtitle>{{ weatherData.main?.temp }}</ion-card-subtitle>
       </ion-card-header>
     </ion-card>
   </div>
