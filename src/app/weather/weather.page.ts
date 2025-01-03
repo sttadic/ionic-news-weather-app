@@ -23,7 +23,7 @@ export class WeatherPage implements OnInit {
   unit!: string;
   tempUnit!: string;
   hidden!: boolean;
-  backgroundImage: string = "/assets/images/default.jpg" 
+  backgroundImage!: string;
   apiKey = "b2d49c5ea156ef787f5cde7cdd1d40cc";
   options: HttpOptions = {
     url: "https://api.openweathermap.org/data/2.5/weather"
@@ -83,8 +83,9 @@ export class WeatherPage implements OnInit {
     this.weatherData = result.data;
   }
 
+  // Set background image depending on weather condition code
   setBackground(weatherId: number) {
-    console.log(weatherId)
+    // Set default if no weather id and bail out
     if (!weatherId) {
       this.backgroundImage = "/assets/images/default.jpg";
       return;
@@ -104,8 +105,5 @@ export class WeatherPage implements OnInit {
     } else {
       this.backgroundImage = "/assets/images/thick_clouds.jpg";
     }
-
-    }
-  
-
+  }
 }
