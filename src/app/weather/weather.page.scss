@@ -1,3 +1,21 @@
+.btn-back {
+    display: inline-block;
+    vertical-align:bottom;
+    font-size: 2rem;
+    margin-left: 2rem;
+    cursor: pointer;
+}
+
+.btn-back:hover {
+    outline: 0.1rem solid #777;
+    border-radius: 1rem;
+
+}
+
+ion-toolbar ion-title {
+    display: inline-block;
+}
+
 ion-content {
     --background: none; /* Remove default background */
   background-size: cover;

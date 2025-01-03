@@ -1,18 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonCardContent, IonCardSubtitle, IonCardTitle, IonCardHeader, IonCard } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonCardSubtitle, IonCardTitle, IonCardHeader, IonCard, IonIcon } from '@ionic/angular/standalone';
 import { HttpOptions } from '@capacitor/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MyHttpService } from '../services/my-http.service';
 import { StorageService } from '../services/storage.service';
+import { addIcons } from 'ionicons';
+import { arrowBackCircleOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-weather',
   templateUrl: './weather.page.html',
   styleUrls: ['./weather.page.scss'],
   standalone: true,
-  imports: [IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, RouterLink]
 })
 export class WeatherPage implements OnInit {
   weatherData: any = {};
@@ -31,6 +33,7 @@ export class WeatherPage implements OnInit {
 
   // Accessing data passed with Angular Router: https://ionicacademy.com/pass-data-angular-router-ionic-4/
   constructor(private route: ActivatedRoute, private router: Router, private mhs: MyHttpService, private ss: StorageService) {
+    addIcons({arrowBackCircleOutline});
     this.route.queryParams.subscribe(() => {
       if (this.router.getCurrentNavigation()) {
         this.countryData = this.router.getCurrentNavigation()?.extras.state;
