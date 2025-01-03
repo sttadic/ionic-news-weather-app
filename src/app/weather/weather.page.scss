@@ -1,0 +1,22 @@
+ion-content {
+    --background: none; /* Remove default background */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100%;
+}
+ion-card {
+    margin: 2rem 0 0 3rem;
+    max-width: fit-content;
+    border: 0.5rem outset rgb(151, 114, 11);
+    box-shadow: 0.5rem 0.5rem 1rem rgb(151, 114, 11);
+    border-radius: 0.5rem;
+}
+
+ion-card-title {
+    font-size: 2rem;
+}
+
+ion-card-subtitle {
+    font-size: 1.2rem;
+}

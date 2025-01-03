@@ -23,6 +23,7 @@ export class WeatherPage implements OnInit {
   unit!: string;
   tempUnit!: string;
   hidden!: boolean;
+  backgroundImage: string = "/assets/images/default.jpg" 
   apiKey = "b2d49c5ea156ef787f5cde7cdd1d40cc";
   options: HttpOptions = {
     url: "https://api.openweathermap.org/data/2.5/weather"
@@ -78,7 +79,33 @@ export class WeatherPage implements OnInit {
       this.hidden = true;
       return;
     }
+    this.setBackground(result.data.weather[0].id);
     this.weatherData = result.data;
   }
+
+  setBackground(weatherId: number) {
+    console.log(weatherId)
+    if (!weatherId) {
+      this.backgroundImage = "/assets/images/default.jpg";
+      return;
+    }
+    if (weatherId < 300) {
+      this.backgroundImage = "/assets/images/thunderstorm.jpg";
+    } else if (weatherId < 600) {
+      this.backgroundImage = "/assets/images/rain.jpg";
+    } else if (weatherId < 700) {
+      this.backgroundImage = "/assets/images/snow.jpg";
+    } else if (weatherId < 800) {
+      this.backgroundImage = "/assets/images/foggy.jpg";
+    } else if (weatherId < 801) {
+      this.backgroundImage = "/assets/images/clear_sunny.jpg";
+    } else if (weatherId < 803) {
+      this.backgroundImage = "/assets/images/light_clouds.jpg";
+    } else {
+      this.backgroundImage = "/assets/images/thick_clouds.jpg";
+    }
+
+    }
+  
 
 }
