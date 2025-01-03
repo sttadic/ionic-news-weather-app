@@ -25,7 +25,7 @@ export class WeatherPage implements OnInit {
   unit!: string;
   tempUnit!: string;
   hidden!: boolean;
-  backgroundImage!: string;
+  backgroundImage: string = "";
   apiKey = "b2d49c5ea156ef787f5cde7cdd1d40cc";
   options: HttpOptions = {
     url: "https://api.openweathermap.org/data/2.5/weather"
@@ -82,8 +82,8 @@ export class WeatherPage implements OnInit {
       this.hidden = true;
       return;
     }
-    this.setBackground(result.data.weather[0].id);
     this.weatherData = result.data;
+    this.setBackground(this.weatherData.weather[0].id);
   }
 
   // Set background image depending on weather condition code
