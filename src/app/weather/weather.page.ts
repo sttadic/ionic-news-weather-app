@@ -26,6 +26,7 @@ export class WeatherPage implements OnInit {
   tempUnit!: string;
   hidden!: boolean;
   backgroundImage: string = "";
+  statusMessage: string = " is loading...";
   apiKey = "b2d49c5ea156ef787f5cde7cdd1d40cc";
   options: HttpOptions = {
     url: "https://api.openweathermap.org/data/2.5/weather"
@@ -33,7 +34,7 @@ export class WeatherPage implements OnInit {
 
   // Accessing data passed with Angular Router: https://ionicacademy.com/pass-data-angular-router-ionic-4/
   constructor(private route: ActivatedRoute, private router: Router, private mhs: MyHttpService, private ss: StorageService) {
-    addIcons({arrowBackCircleOutline});
+    addIcons({ arrowBackCircleOutline });
     this.route.queryParams.subscribe(() => {
       if (this.router.getCurrentNavigation()) {
         this.countryData = this.router.getCurrentNavigation()?.extras.state;
@@ -61,7 +62,7 @@ export class WeatherPage implements OnInit {
   }
 
   setTempUnit() {
-    switch(this.unit) {
+    switch (this.unit) {
       case "imperial":
         this.tempUnit = "°F";
         break;
@@ -77,8 +78,9 @@ export class WeatherPage implements OnInit {
   async fetchWeather() {
     this.options.url = `${this.options.url}?lat=${this.latitude}&lon=${this.longitude}&units=${this.unit}&appid=${this.apiKey}`;
     let result = await this.mhs.get(this.options);
-    // Check for valid status codes
+    // Handle client/server errors and in case of one, display status message and return
     if (result.status >= 400) {
+      this.statusMessage = " cannot be retrieved at the moment! Please try again later.";
       this.hidden = true;
       return;
     }
