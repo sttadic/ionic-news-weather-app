@@ -7,8 +7,8 @@
 <ion-content [fullscreen]="true">
   <div class="card-countries">
     <ion-button fill="outline" [routerLink]="['/home']">Go Back</ion-button>
-    <h4 *ngIf="!contriesData">{{ statusMessage }}</h4>
-    <ion-card *ngFor="let country of contriesData">
+    <h4 *ngIf="!countriesData">{{ statusMessage }}</h4>
+    <ion-card *ngFor="let country of countriesData">
       <img alt="flag" src="{{ country.flags.png }}" />
       <ion-card-header>
         <ion-card-title>{{ country.name.official }}</ion-card-title>

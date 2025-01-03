@@ -34,7 +34,7 @@ export class HomePage {
   }
 
   // Store country query in ionic storage and navigate to contries page
-  async storeSearchParam() {
+  async loadCountries() {
     if (!this.countrySearchParam) {
       alert("Search field cannot be empty!");
       return;

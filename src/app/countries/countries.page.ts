@@ -14,35 +14,44 @@ import { NavigationExtras, Router, RouterLink } from '@angular/router';
   standalone: true,
   imports: [IonButton, IonCardHeader, IonCard, IonCardTitle, IonCardContent, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, RouterLink]
 })
-export class CountriesPage implements OnInit {
+export class CountriesPage {
   searchParam: string = "";
-  contriesData: any;
+  countriesData: any;
   statusMessage: string = "Loading...";
-  options: HttpOptions = {
-    url: "https://restcountries.com/v3.1/name/"  
-  }
+  options!: HttpOptions;
 
   constructor(private ss: StorageService, private mhs: MyHttpService, private router: Router) { }
 
-  ngOnInit() {
+  // Set options url on page load to prevent odd behaviour where searchParam would be concatenated if 
+  // page is refreshed, navigated back and another was search made 
+  ionViewWillEnter() {
+    this.options = {
+      url: "https://restcountries.com/v3.1/name/"
+    }
     this.getSearchParam();
   }
 
-  // Fetch data from storage and call getContries after searchParam is set
+  // Handle odd error where data would persists if page was refreshed, navigated back and invalid 
+  // search made (e.g. asdfsdfsa) -> set of countries from the last search would be displayed
+  ionViewWillLeave() {
+    this.countriesData = null;
+  }
+
+  // Fetch data from storage and call getCountries after searchParam is set
   async getSearchParam() {
     this.searchParam = await this.ss.get("countrySearchParam");
-    this.getCountries();
+    if (this.searchParam.length > 0) this.getCountries();
   }
 
   async getCountries() {
-    this.options.url = this.options.url + this.searchParam;
+    this.options.url += this.searchParam;
     const result = await this.mhs.get(this.options);
     // Handle client/server issues or no data fetched
     if (result.status >= 400 || result.data.length == 0) {
       this.statusMessage = "We looked everywhere but couldn’t find what you’re looking for. Please try again!";
       return; 
     } 
-    this.contriesData = result.data;
+    this.countriesData = result.data;
   }
 
   // Passing data using Router: https://ionicacademy.com/pass-data-angular-router-ionic-4/
