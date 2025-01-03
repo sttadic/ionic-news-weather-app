@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonButton } from '@ionic/angular/standalone';
@@ -13,16 +13,14 @@ import { MyHttpService } from '../services/my-http.service';
   standalone: true,
   imports: [IonButton, IonCardTitle, IonCardSubtitle, IonCardHeader, IonCard, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, RouterLink]
 })
-export class NewsPage implements OnInit  {
+export class NewsPage {
   newsData: any;
   countryData: any;
   countryName!: string;
   countryCode!: string;
   statusMessage: string = "Loading...";
   apiKey = "pub_628836546e756bbccd0a705c35d8b65b011d2";
-  options: HttpOptions = {
-    url: "https://newsdata.io/api/1/latest?apikey="
-  }
+  options!: HttpOptions;
 
   // Accessing data passed with Angular Router: https://ionicacademy.com/pass-data-angular-router-ionic-4/
   constructor(private route: ActivatedRoute, private router: Router, private mhs: MyHttpService) {
@@ -33,13 +31,17 @@ export class NewsPage implements OnInit  {
     });
   }
 
-  ngOnInit() {
+  ionViewWillEnter() {
+    this.options = {
+      url: "https://newsdata.io/api/1/latest?apikey="
+    }
     this.countryName = this.countryData.countryName;
     this.countryCode = this.countryData.countryCode;
+    this.fetchNews();
   }
 
-  ionViewWillEnter() {
-    this.fetchNews();
+  ionViewWillLeave() {
+    this.newsData = null;
   }
 
   async fetchNews() {

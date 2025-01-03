@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonCardSubtitle, IonCardTitle, IonCardHeader, IonCard, IonIcon } from '@ionic/angular/standalone';
@@ -16,7 +16,7 @@ import { arrowBackCircleOutline } from 'ionicons/icons';
   standalone: true,
   imports: [IonIcon, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, RouterLink]
 })
-export class WeatherPage implements OnInit {
+export class WeatherPage {
   weatherData: any = {};
   countryData: any;
   latitude!: string;
@@ -28,9 +28,7 @@ export class WeatherPage implements OnInit {
   backgroundImage: string = "";
   statusMessage: string = " is loading...";
   apiKey = "b2d49c5ea156ef787f5cde7cdd1d40cc";
-  options: HttpOptions = {
-    url: "https://api.openweathermap.org/data/2.5/weather"
-  }
+  options!: HttpOptions;
 
   // Accessing data passed with Angular Router: https://ionicacademy.com/pass-data-angular-router-ionic-4/
   constructor(private route: ActivatedRoute, private router: Router, private mhs: MyHttpService, private ss: StorageService) {
@@ -42,14 +40,14 @@ export class WeatherPage implements OnInit {
     });
   }
 
-  ngOnInit() {
+  ionViewWillEnter() {
+    this.options = {
+      url: "https://api.openweathermap.org/data/2.5/weather"
+    }
     this.hidden = false;
     this.latitude = this.countryData.latitude;
     this.longitude = this.countryData.longitude;
     this.capital = this.countryData.capital;
-  }
-
-  ionViewWillEnter() {
     this.initUnitWeather();
   }
 
