@@ -5,14 +5,14 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonCardContent, IonCardTit
 import { StorageService } from '../services/storage.service';
 import { MyHttpService } from '../services/my-http.service';
 import { HttpOptions } from '@capacitor/core';
-import { NavigationExtras, Router } from '@angular/router';
+import { NavigationExtras, Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-countries',
   templateUrl: './countries.page.html',
   styleUrls: ['./countries.page.scss'],
   standalone: true,
-  imports: [IonButton, IonCardHeader, IonCard, IonCardTitle, IonCardContent, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [IonButton, IonCardHeader, IonCard, IonCardTitle, IonCardContent, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, RouterLink]
 })
 export class CountriesPage implements OnInit {
   searchParam: string = "";

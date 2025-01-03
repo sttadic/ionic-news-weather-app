@@ -1,11 +1,12 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>{{ searchParam }}</ion-title>
+    <ion-title>You searched for: <span>{{ searchParam }}</span></ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <div class="card-countries">
+    <ion-button fill="outline" [routerLink]="['/home']">Go Back</ion-button>
     <h4 *ngIf="!contriesData">We looked everywhere but couldn’t find what you’re looking for. Please try again!</h4>
     <ion-card *ngFor="let country of contriesData">
       <img alt="flag" src="{{ country.flags.png }}" />

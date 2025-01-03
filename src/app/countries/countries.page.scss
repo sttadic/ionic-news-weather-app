@@ -1,4 +1,22 @@
+ion-header {
+    text-align: center;
+}
+
+ion-title span {
+    font-weight: 600;
+}
+
 .card-countries {
-    margin: 2rem 0 0 2rem;
+    margin: 2rem auto;
     max-width: fit-content;
+    text-align: center;
+}
+
+ion-card {
+    box-shadow: 0rem 0rem 0.5rem #777;
+}
+
+ion-card img {
+    outline: 0.1rem solid #777;
+    margin-top: 1rem;
 }

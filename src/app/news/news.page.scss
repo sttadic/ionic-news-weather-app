@@ -1,3 +1,11 @@
+ion-header {
+    text-align: center;
+}
+
+ion-title span {
+    font-weight: 600;
+}
+
 .news-container {
     max-width: 50%;
     text-align: center;
@@ -5,13 +13,14 @@
 }
 
 .news-container ion-card {
-    box-shadow: 0.3rem 0.3rem 0.3rem 0.3rem rgb(151, 114, 11);
+    outline: 0.1rem groove #777;
+    box-shadow: 0.3rem 0.3rem 0.3rem #777;
     margin-bottom: 1rem; 
 }
 
 .news-image {
     width: 50%;
-    border: 0.3rem groove rgb(151, 114, 11); 
+    border: 0.3rem groove #777; 
     margin-top: 0.5rem;
 }
 
@@ -23,7 +32,7 @@
 }
 
 .news-link:hover {
-    box-shadow: 0.3rem 0.3rem 0.5rem rgb(151, 114, 11);
-    outline: 0.1rem groove rgb(151, 114, 11);
+    box-shadow: 0.2rem 0.2rem 0.3rem #777;
+    outline: 0.1rem groove #777;
     border-radius: 0.3rem;
 }
