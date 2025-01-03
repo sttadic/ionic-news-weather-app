@@ -7,7 +7,7 @@
 <ion-content [fullscreen]="true">
   <div class="news-container">
     <ion-button fill="outline" [routerLink]="['/countries']">Go Back</ion-button>
-    <h4 *ngIf="!newsData">No News for {{ countryName }}</h4>
+    <h4 *ngIf="!newsData">{{ statusMessage }}</h4>
     <ion-card *ngFor="let story of newsData">
       <img class="news-image" alt="Story image" src="{{ story?.image_url }}" />
       <ion-card-header>

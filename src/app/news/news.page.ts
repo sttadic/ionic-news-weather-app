@@ -18,6 +18,7 @@ export class NewsPage implements OnInit  {
   countryData: any;
   countryName!: string;
   countryCode!: string;
+  statusMessage: string = "Loading...";
   apiKey = "pub_628836546e756bbccd0a705c35d8b65b011d2";
   options: HttpOptions = {
     url: "https://newsdata.io/api/1/latest?apikey="
@@ -44,8 +45,11 @@ export class NewsPage implements OnInit  {
   async fetchNews() {
     this.options.url = this.options.url + this.apiKey + "&country=" + this.countryCode;
     let result = await this.mhs.get(this.options);
-    // Handle status codes that indicate issue with client request or server
-    if (result.status >= 400) return;
+    // Handle client/server issues and absence of news data
+    if (result.status >= 400 || result.data.totalResults == 0) {
+      this.statusMessage = "No news for " + this.countryName + " at the moment";
+      return;
+    }
     this.newsData = result.data.results;
   }
 }

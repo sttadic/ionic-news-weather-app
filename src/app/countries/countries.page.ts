@@ -17,6 +17,7 @@ import { NavigationExtras, Router, RouterLink } from '@angular/router';
 export class CountriesPage implements OnInit {
   searchParam: string = "";
   contriesData: any;
+  statusMessage: string = "Loading...";
   options: HttpOptions = {
     url: "https://restcountries.com/v3.1/name/"  
   }
@@ -36,8 +37,11 @@ export class CountriesPage implements OnInit {
   async getCountries() {
     this.options.url = this.options.url + this.searchParam;
     const result = await this.mhs.get(this.options);
-    // Don't proceed in case no countries can be found (404) or some other client/server issue
-    if (result.data.status >= 400) return; 
+    // Handle client/server issues or no data fetched
+    if (result.status >= 400 || result.data.length == 0) {
+      this.statusMessage = "We looked everywhere but couldn’t find what you’re looking for. Please try again!";
+      return; 
+    } 
     this.contriesData = result.data;
   }
 
