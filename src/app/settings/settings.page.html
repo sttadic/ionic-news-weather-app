@@ -6,11 +6,23 @@
 
 <ion-content [fullscreen]="true">
   <div class="div-settings-radio">
-    <ion-radio-group [(ngModel)]="unitSystem" (ionChange)="storeUnit()" class="settings-radio">
+    <ion-item-divider><ion-label>Units of Measurement</ion-label></ion-item-divider><br>
+    <ion-radio-group [(ngModel)]="unitSystem" (ionChange)="storeConfig()" class="settings-radio">
       <ion-radio value="metric">Metric</ion-radio><br />
       <ion-radio value="standard">Standard</ion-radio><br />
       <ion-radio value="imperial">Imperial</ion-radio><br />
     </ion-radio-group>
+
+    <br>
+    <ion-item-divider><ion-label>Set API keys</ion-label></ion-item-divider>
+    <ion-list>
+      <ion-item>
+        <ion-input [(ngModel)]="newsApi" (ionInput)="storeConfig()" label="News API Key" placeholder="Get it from https://newsdata.io/"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input [(ngModel)]="weatherApi" (ionInput)="storeConfig()" label="Weather API Key" placeholder="Get it from https://openweathermap.org/api"></ion-input>
+      </ion-item>
+    </ion-list>
     <ion-button fill="outline" [routerLink]="['/home']">Go Back</ion-button>
-</div>
+  </div>
 </ion-content>

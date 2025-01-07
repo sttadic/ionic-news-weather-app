@@ -27,7 +27,7 @@ export class WeatherPage {
   hidden!: boolean;
   backgroundImage: string = "";
   statusMessage: string = " is loading...";
-  apiKey = "b2d49c5ea156ef787f5cde7cdd1d40cc";
+  userApiKey!: string;
   options!: HttpOptions;
 
   // Accessing data passed with Angular Router: https://ionicacademy.com/pass-data-angular-router-ionic-4/
@@ -48,6 +48,7 @@ export class WeatherPage {
     this.latitude = this.countryData.latitude;
     this.longitude = this.countryData.longitude;
     this.capital = this.countryData.capital;
+    this.getApiKey();
     this.initUnitWeather();
   }
 
@@ -73,8 +74,20 @@ export class WeatherPage {
     }
   }
 
+  // Get api key from storage
+  async getApiKey() {
+    this.userApiKey = await this.ss.get("weatherApi");
+    console.log(this.userApiKey)
+    if (!this.userApiKey) {
+      this.statusMessage = " cannot be retrieved at the moment! Please try again later.";
+      this.hidden = true;
+      alert("Please set your API Key in the settings!");
+      return;
+    }
+  }
+
   async fetchWeather() {
-    this.options.url = `${this.options.url}?lat=${this.latitude}&lon=${this.longitude}&units=${this.unit}&appid=${this.apiKey}`;
+    this.options.url = `${this.options.url}?lat=${this.latitude}&lon=${this.longitude}&units=${this.unit}&appid=${this.userApiKey}`;
     let result = await this.mhs.get(this.options);
     // Handle client/server errors and in case of one, display status message and return
     if (result.status >= 400) {
